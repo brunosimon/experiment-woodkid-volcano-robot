@@ -55,7 +55,7 @@ export default class Gamepad extends EventEmitter
             new GamepadButton(15, 'buttonRight'),
             new GamepadButton(13, 'buttonDown'),
             
-            // Joysticks
+            // Joysticks buttons
             new GamepadButton(10, 'buttonJoystickLeft'),
             new GamepadButton(11, 'buttonJoystickRight'),
 
