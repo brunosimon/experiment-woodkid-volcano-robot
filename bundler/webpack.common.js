@@ -54,6 +54,17 @@ module.exports = {
                 ]
             },
 
+            // Stylus
+            {
+                test: /\.styl$/,
+                use:
+                [
+                    MiniCSSExtractPlugin.loader,
+                    'css-loader',
+                    'stylus-loader'
+                ]
+            },
+
             // Images
             {
                 test: /\.(jpg|png|gif|svg)$/,

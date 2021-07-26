@@ -1,0 +1,183 @@
+.gamepad-interface
+    position fixed
+    top 0
+    left 0
+    width 600px
+    height 400px
+    // border 1px solid #ffffff
+
+    .input
+
+        // Is button
+        &.is-button
+            position absolute
+            top 0
+            left 0
+            width 5%
+            aspect-ratio 1
+            border-radius 50%
+            border 2px solid #ffffff
+            transform translate(-50%, -50%)
+            overflow hidden
+
+            // Right buttons
+            &.is-buttonCircle
+                top calc(50% + 0%)
+                left calc(50% + 25%)
+                transform translate(-50%, -50%) translate(100%, 0%)
+
+            &.is-buttonTriangle
+                top calc(50% + 0%)
+                left calc(50% + 25%)
+                transform translate(-50%, -50%) translate(0%, -100%)
+
+            &.is-buttonSquare
+                top calc(50% + 0%)
+                left calc(50% + 25%)
+                transform translate(-50%, -50%) translate(-100%, 0%)
+
+            &.is-buttonCross
+                top calc(50% + 0%)
+                left calc(50% + 25%)
+                transform translate(-50%, -50%) translate(0%, 100%)
+
+            // Left buttons
+            &.is-buttonRight
+                top calc(50% + 0%)
+                left calc(50% - 25%)
+                transform translate(-50%, -50%) translate(100%, 0%)
+
+            &.is-buttonUp
+                top calc(50% + 0%)
+                left calc(50% - 25%)
+                transform translate(-50%, -50%) translate(0%, -100%)
+
+            &.is-buttonLeft
+                top calc(50% + 0%)
+                left calc(50% - 25%)
+                transform translate(-50%, -50%) translate(-100%, 0%)
+
+            &.is-buttonDown
+                top calc(50% + 0%)
+                left calc(50% - 25%)
+                transform translate(-50%, -50%) translate(0%, 100%)
+
+            // Back buttons
+            &.is-buttonL1
+                top calc(50% - 23%)
+                left calc(50% - 25%)
+                transform translate(-50%, -50%)
+                border-top-right-radius 0
+                border-top-left-radius 0
+                border-bottom-left-radius 10px
+                border-bottom-right-radius 10px
+                width 10%
+                aspect-ratio 3
+
+            &.is-buttonL2
+                top calc(50% - 30%)
+                left calc(50% - 25%)
+                transform translate(-50%, -50%)
+                border-top-right-radius 10px
+                border-top-left-radius 10px
+                border-bottom-left-radius 0
+                border-bottom-right-radius 0
+                width 10%
+                aspect-ratio 2
+            
+            &.is-buttonR1
+                top calc(50% - 23%)
+                left calc(50% + 25%)
+                transform translate(-50%, -50%)
+                border-top-right-radius 0
+                border-top-left-radius 0
+                border-bottom-left-radius 10px
+                border-bottom-right-radius 10px
+                width 10%
+                aspect-ratio 3
+
+            &.is-buttonR2
+                top calc(50% - 30%)
+                left calc(50% + 25%)
+                transform translate(-50%, -50%)
+                border-top-right-radius 10px
+                border-top-left-radius 10px
+                border-bottom-left-radius 0
+                border-bottom-right-radius 0
+                width 10%
+                aspect-ratio 2
+
+            // Special buttons
+            &.is-buttonTouchpad
+                top calc(50% - 15%)
+                left calc(50%)
+                width 25%
+                aspect-ratio 2
+                border-radius 10px
+
+            &.is-buttonShare
+                top calc(50% - 20%)
+                left calc(50% - 15%)
+                width 2.5%
+                aspect-ratio 0.5
+                border-radius 10px
+
+            &.is-buttonOptions
+                top calc(50% - 20%)
+                left calc(50% + 15%)
+                width 2.5%
+                aspect-ratio 0.5
+                border-radius 10px
+            
+            &.is-buttonHome
+                top calc(50% + 5%)
+                left calc(50%)
+
+            // Is active
+            &.is-active
+                .fill
+                    opacity 1
+                    transition-duration 0s
+
+            .fill
+                content ''
+                position absolute
+                top -1px
+                left -1px
+                width calc(100% + 2px)
+                height calc(100% + 2px)
+                background #ffffff
+                opacity 0
+                transition-duration 0.25s
+                transition-property opacity
+                will-change opacity
+                transform-origin bottom center
+        
+        // Is joystick
+        &.is-joystick
+            position absolute
+            top 0
+            left 0
+            width 10%
+            aspect-ratio 1
+            border-radius 50%
+            border 2px solid #ffffff
+            transform translate(-50%, -50%)
+            overflow hidden
+
+            .tip
+                position absolute
+                top 25%
+                left 25%
+                width 50%
+                aspect-ratio 1
+                border-radius 50%
+                border 2px solid #ffffff
+                
+            &.is-joystickLeft
+                top calc(50% + 15%)
+                left calc(50% - 10%)
+
+            &.is-joystickRight
+                top calc(50% + 15%)
+                left calc(50% + 10%)

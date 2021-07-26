@@ -8,6 +8,7 @@ import Resources from './Resources.js'
 import Renderer from './Renderer.js'
 import Camera from './Camera.js'
 import World from './World.js'
+import Gamepad from './Gamepad/Gamepad.js'
 
 import assets from './assets.js'
 
@@ -35,6 +36,7 @@ export default class Experience
         this.setRenderer()
         this.setResources()
         this.setWorld()
+        this.setGamepad()
         
         this.sizes.on('resize', () =>
         {
@@ -104,6 +106,24 @@ export default class Experience
         this.world = new World()
     }
 
+    setGamepad()
+    {
+        this.gamepad = new Gamepad()
+
+        this.gamepad.inputs.buttonCircle.on('pressed', () =>
+        {
+            console.log('yup')
+        })
+
+        // this.gamepad.on('joystickChanged', (_name) =>
+        // {
+        //     if(_name === 'left')
+        //     {
+        //         console.log('Move robot')
+        //     }
+        // })
+    }
+
     update()
     {
         if(this.stats)
@@ -116,6 +136,9 @@ export default class Experience
         
         if(this.renderer)
             this.renderer.update()
+        
+        if(this.gamepad)
+            this.gamepad.update()
 
         window.requestAnimationFrame(() =>
         {
@@ -140,9 +163,6 @@ export default class Experience
 
         if(this.world)
             this.world.resize()
-
-        if(this.navigation)
-            this.navigation.resize()
     }
 
     destroy()

@@ -1,4 +1,4 @@
-import './style.css'
+import './style.styl'
 import Experience from './Experience/Experience.js'
 
 const experience = new Experience({
