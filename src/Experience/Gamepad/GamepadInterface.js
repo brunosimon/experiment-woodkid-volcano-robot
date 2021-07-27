@@ -42,10 +42,13 @@ export default class GamepadInterface
                     inputElement.classList.remove('is-active')
                 })
     
-                _input.on('pressureChanged', (_index, _name, _value) =>
+                if(_input.hasPressure)
                 {
-                    fillElement.style.transform = `scaleY(${_value})`
-                })
+                    _input.on('pressureChanged', (_index, _name, _value) =>
+                    {
+                        fillElement.style.transform = `scaleY(${_value})`
+                    })
+                }
             }
 
             // Is joystick
