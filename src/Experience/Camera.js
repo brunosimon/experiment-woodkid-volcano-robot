@@ -14,8 +14,14 @@ export default class Camera
         this.targetElement = this.experience.targetElement
         this.scene = this.experience.scene
 
+        // Debug
+        this.debugFolder = this.debug.addFolder({
+            title: 'camera',
+            expanded: true
+        })
+
         // Set up
-        this.mode = 'debug' // defaultCamera \ debugCamera
+        this.mode = 'default' // defaultCamera \ debugCamera
 
         this.setInstance()
         this.setModes()
@@ -24,7 +30,7 @@ export default class Camera
     setInstance()
     {
         // Set up
-        this.instance = new THREE.PerspectiveCamera(25, this.config.width / this.config.height, 0.1, 150)
+        this.instance = new THREE.PerspectiveCamera(45, this.config.width / this.config.height, 0.1, 150)
         this.instance.rotation.reorder('YXZ')
 
         this.scene.add(this.instance)
@@ -37,21 +43,38 @@ export default class Camera
         // Default
         this.modes.default = {}
         this.modes.default.instance = this.instance.clone()
+        this.modes.default.instance.position.z = 10
         this.modes.default.instance.rotation.reorder('YXZ')
 
         // Debug
         this.modes.debug = {}
         this.modes.debug.instance = this.instance.clone()
         this.modes.debug.instance.rotation.reorder('YXZ')
-        this.modes.debug.instance.position.set(5, 5, 5)
+        this.modes.debug.instance.position.set(10, 10, 20)
         
         this.modes.debug.orbitControls = new OrbitControls(this.modes.debug.instance, this.targetElement)
         this.modes.debug.orbitControls.enabled = this.modes.debug.active
         this.modes.debug.orbitControls.screenSpacePanning = true
         this.modes.debug.orbitControls.enableKeys = false
-        this.modes.debug.orbitControls.zoomSpeed = 0.25
+        // this.modes.debug.orbitControls.zoomSpeed = 0.25
         this.modes.debug.orbitControls.enableDamping = true
         this.modes.debug.orbitControls.update()
+
+
+        this.debugFolder
+            .addInput(
+                this,
+                'mode',
+                {
+                    view: 'list',
+                    label: 'mode',
+                    options:
+                    [
+                        { text: 'default', value: 'default' },
+                        { text: 'debug', value: 'debug' },
+                    ]
+                }
+            )
     }
 
 

@@ -1,4 +1,5 @@
-import * as THREE from 'three'
+import Robot from './Robot.js'
+import Lights from './Lights.js'
 
 export default class World
 {
@@ -8,24 +9,26 @@ export default class World
         this.config = this.experience.config
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-        
+        this.gamepad = this.experience.gamepad
+
         this.resources.on('groupEnd', (_group) =>
         {
             if(_group.name === 'base')
             {
-                this.setDummy()
+                this.setRobot()
+                this.setLights()
             }
         })
     }
 
-    setDummy()
+    setRobot()
     {
-        // this.resources.items.lennaTexture.encoding = THREE.sRGBEncoding
-        const cube = new THREE.Mesh(
-            new THREE.BoxGeometry(1, 1, 1),
-            new THREE.MeshBasicMaterial({ color: 0xff0000 })
-        )
-        this.scene.add(cube)        
+        this.robot = new Robot()    
+    }
+
+    setLights()
+    {
+        this.lights = new Lights()
     }
 
     resize()
@@ -34,6 +37,8 @@ export default class World
 
     update()
     {
+        if(this.robot)
+            this.robot.update()
     }
 
     destroy()

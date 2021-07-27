@@ -35,8 +35,8 @@ export default class Experience
         this.setCamera()
         this.setRenderer()
         this.setResources()
-        this.setWorld()
         this.setGamepad()
+        this.setWorld()
         
         this.sizes.on('resize', () =>
         {
@@ -109,19 +109,6 @@ export default class Experience
     setGamepad()
     {
         this.gamepad = new Gamepad()
-
-        this.gamepad.inputs.buttonCircle.on('pressed', () =>
-        {
-            console.log('yup')
-        })
-
-        // this.gamepad.on('joystickChanged', (_name) =>
-        // {
-        //     if(_name === 'left')
-        //     {
-        //         console.log('Move robot')
-        //     }
-        // })
     }
 
     update()
