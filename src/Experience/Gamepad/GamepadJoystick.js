@@ -35,6 +35,11 @@ export default class GamepadButton extends EventEmitter
             {
                 this.relevant = false
 
+                // Reset values
+                this.x = 0
+                this.y = 0
+                this.distance = 0
+
                 // Trigger
                 this.trigger('ended', [this.index, this.name])
             }
