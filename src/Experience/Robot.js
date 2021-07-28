@@ -36,6 +36,8 @@ export default class Robot
                 value: 0,
                 easedValue: 0,
                 directionMultiplier: 1,
+                min: - Infinity,
+                max: Infinity,
                 inputName: 'buttonCircle'
             },
             {
@@ -48,6 +50,8 @@ export default class Robot
                 value: 0,
                 easedValue: 0,
                 directionMultiplier: 1,
+                min: - Infinity,
+                max: Infinity,
                 inputName: 'buttonSquare'
             },
             {
@@ -60,6 +64,8 @@ export default class Robot
                 value: 0,
                 easedValue: 0,
                 directionMultiplier: 1,
+                min: - Math.PI * 0.75,
+                max: 0,
                 inputName: 'buttonCross'
             },
             {
@@ -72,6 +78,8 @@ export default class Robot
                 value: 0,
                 easedValue: 0,
                 directionMultiplier: 1,
+                min: - Infinity,
+                max: Infinity,
                 inputName: 'buttonTriangle'
             },
 
@@ -145,6 +153,8 @@ export default class Robot
             {
                 if(this.gamepad.inputs[_part.inputName].pressed)
                     _part.value += _part.speed * this.time.delta * _part.directionMultiplier
+
+                _part.value = Math.min(Math.max(_part.value, _part.min), _part.max)
             }
             else if(_part.type === 'buttonPressure')
             {
