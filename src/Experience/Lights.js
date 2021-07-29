@@ -31,8 +31,11 @@ export default class Lights
         this.pointLight.color = '#ffffff'
 
         // Instance
-        this.pointLight.instance = new THREE.PointLight(0xffffff, 50, 0, 2)
+        this.pointLight.instance = new THREE.PointLight(0xffffff, 100, 0, 2)
+        this.pointLight.instance.position.y = 2
         this.pointLight.instance.position.z = 5.5
+        this.pointLight.instance.castShadow = true
+        this.pointLight.instance.shadow.mapSize.set(1024, 1024)
         this.scene.add(this.pointLight.instance)
 
         // Debug
@@ -56,7 +59,7 @@ export default class Lights
             .addInput(
                 this.pointLight.instance,
                 'intensity',
-                { min: 0, max: 100 }
+                { min: 0, max: 200 }
             )
 
         debugFolder

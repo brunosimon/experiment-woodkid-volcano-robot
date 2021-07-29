@@ -120,6 +120,12 @@ export default class Robot
                 {
                     part.objects.push(_child)
                 }
+
+                if(_child instanceof THREE.Mesh)
+                {
+                    _child.castShadow = true
+                    _child.receiveShadow = true
+                }
             }
         })
 
