@@ -7,12 +7,60 @@ export default class Robot
     {
         this.experience = window.experience
         this.config = this.experience.config
-        this.time = this.experience.time        
+        this.debug = this.experience.debug
+        this.time = this.experience.time
         this.scene = this.experience.scene
-        this.gamepad = this.experience.gamepad        
-        this.resources = this.experience.resources        
+        this.gamepad = this.experience.gamepad
+        this.resources = this.experience.resources
 
+        // Debug
+        this.debugFolder = this.debug.addFolder({
+            title: 'robot',
+            expanded: true,
+        })
+
+        this.setMaterial()
         this.setModel()
+    }
+
+    setMaterial()
+    {
+        this.color = '#666666'
+
+        this.material = new THREE.MeshStandardMaterial()
+        this.material.color = new THREE.Color(this.color)
+        this.material.wireframe = false
+
+        this.debugFolder
+            .addInput(
+                this,
+                'color',
+                { view: 'color' }
+            )
+            .on('change', () =>
+            {
+                this.material.color.set(this.color)
+            })
+        
+        this.debugFolder
+            .addInput(
+                this.material,
+                'roughness',
+                { min: 0, max: 1 }
+            )
+        
+        this.debugFolder
+            .addInput(
+                this.material,
+                'metalness',
+                { min: 0, max: 1 }
+            )
+        
+        this.debugFolder
+            .addInput(
+                this.material,
+                'wireframe'
+            )
     }
 
     setModel()
@@ -123,8 +171,12 @@ export default class Robot
 
                 if(_child instanceof THREE.Mesh)
                 {
+                    // Activate shadow
                     _child.castShadow = true
                     _child.receiveShadow = true
+
+                    // Set the material
+                    _child.material = this.material
                 }
             }
         })
