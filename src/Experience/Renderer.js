@@ -1,6 +1,9 @@
 import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import finalPassVertexShader from './shaders/FinalPass/vertex.glsl'
+import finalPassFragmentShader from './shaders/FinalPass/fragment.glsl'
 
 export default class Renderer
 {
@@ -14,14 +17,20 @@ export default class Renderer
         this.sizes = this.experience.sizes
         this.scene = this.experience.scene
         this.camera = this.experience.camera
+        
+        this.usePostprocess = true
 
         // Debug
         this.debugFolder = this.debug.addFolder({
             title: 'renderer',
             expanded: true,
         })
-        
-        this.usePostprocess = false
+
+        this.debugFolder
+            .addInput(
+                this,
+                'usePostprocess'
+            )
 
         this.setInstance()
         this.setPostProcess()
@@ -122,6 +131,50 @@ export default class Renderer
         this.postProcess.renderPass = new RenderPass(this.scene, this.camera.instance)
 
         /**
+         * Final pass
+         */
+        this.postProcess.finalPass = new ShaderPass({
+            uniforms:
+            {
+                tDiffuse: { value: null },
+                uNoiseMultiplier: { value: 0.02 },
+                uNoiseOffset: { value: - 0.15 },
+                uRGBShiftMultiplier: { value: 0.004 },
+                uRGBShiftOffset: { value: 0.04 },
+            },
+            vertexShader: finalPassVertexShader,
+            fragmentShader: finalPassFragmentShader
+        })
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.finalPass.uniforms.uNoiseMultiplier,
+                'value',
+                { label: 'uNoiseMultiplier', min: 0, max: 0.05 }
+            )
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.finalPass.uniforms.uNoiseOffset,
+                'value',
+                { label: 'uNoiseOffset', min: - 1, max: 1 }
+            )
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.finalPass.uniforms.uRGBShiftMultiplier,
+                'value',
+                { label: 'uRGBShiftMultiplier', min: 0, max: 0.05 }
+            )
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.finalPass.uniforms.uRGBShiftOffset,
+                'value',
+                { label: 'uRGBShiftOffset', min: - 1, max: 1 }
+            )
+
+        /**
          * Effect composer
          */
         const RenderTargetClass = this.config.pixelRatio >= 2 ? THREE.WebGLRenderTarget : THREE.WebGLMultisampleRenderTarget
@@ -142,6 +195,7 @@ export default class Renderer
         this.postProcess.composer.setPixelRatio(this.config.pixelRatio)
 
         this.postProcess.composer.addPass(this.postProcess.renderPass)
+        this.postProcess.composer.addPass(this.postProcess.finalPass)
     }
 
     resize()
