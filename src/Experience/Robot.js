@@ -61,6 +61,11 @@ export default class Robot
                 this.material,
                 'wireframe'
             )
+
+        this.gamepad.inputs.buttonL1.on('pressed', () =>
+        {
+            this.material.wireframe = !this.material.wireframe
+        })
     }
 
     setModel()
