@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import finalPassVertexShader from './shaders/FinalPass/vertex.glsl'
 import finalPassFragmentShader from './shaders/FinalPass/fragment.glsl'
 
@@ -131,6 +132,40 @@ export default class Renderer
         this.postProcess.renderPass = new RenderPass(this.scene, this.camera.instance)
 
         /**
+         * Unreal Bloom pass
+         */
+        this.postProcess.unrealBloomPass = new UnrealBloomPass(new THREE.Vector2(this.sizes.width, this.sizes.height), 1.5, 0.4, 0.85)
+        this.postProcess.unrealBloomPass.enabled = false
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.unrealBloomPass,
+                'enabled',
+                { label: 'unrealBloomPassEnabled' }
+            )
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.unrealBloomPass,
+                'threshold',
+                { label: 'unrealBloomPassThreshold', min: 0, max: 1 }
+            )
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.unrealBloomPass,
+                'strength',
+                { label: 'unrealBloomPassStrength', min: 0, max: 3 }
+            )
+
+        this.debugFolder
+            .addInput(
+                this.postProcess.unrealBloomPass,
+                'radius',
+                { label: 'unrealBloomPassRadius', min: 0, max: 1 }
+            )
+
+        /**
          * Final pass
          */
         this.postProcess.finalPass = new ShaderPass({
@@ -196,6 +231,7 @@ export default class Renderer
 
         this.postProcess.composer.addPass(this.postProcess.renderPass)
         this.postProcess.composer.addPass(this.postProcess.finalPass)
+        this.postProcess.composer.addPass(this.postProcess.unrealBloomPass)
     }
 
     resize()
