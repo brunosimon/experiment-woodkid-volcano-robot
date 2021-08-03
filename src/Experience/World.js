@@ -46,6 +46,9 @@ export default class World
     {
         if(this.robot)
             this.robot.update()
+
+        if(this.lights)
+            this.lights.update()
     }
 
     destroy()

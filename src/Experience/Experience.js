@@ -7,8 +7,9 @@ import Stats from './Utils/Stats.js'
 import Resources from './Resources.js'
 import Renderer from './Renderer.js'
 import Camera from './Camera.js'
-import World from './World.js'
 import Gamepad from './Gamepad/Gamepad.js'
+import World from './World.js'
+import Presets from './Presets.js'
 
 import assets from './assets.js'
 
@@ -37,6 +38,7 @@ export default class Experience
         this.setResources()
         this.setGamepad()
         this.setWorld()
+        this.setPresets()
         
         this.sizes.on('resize', () =>
         {
@@ -104,6 +106,11 @@ export default class Experience
     setWorld()
     {
         this.world = new World()
+    }
+
+    setPresets()
+    {
+        this.presets = new Presets()
     }
 
     setGamepad()

@@ -7,6 +7,7 @@ export default class Lights
         this.experience = window.experience
         this.debug = this.experience.debug
         this.scene = this.experience.scene
+        this.time = this.experience.time
         
         // Debug
         this.debugFolder = this.debug.addFolder({
@@ -29,7 +30,7 @@ export default class Lights
         this.pointLight.instance.position.y = 5
         this.pointLight.instance.position.z = 3.5
         // this.pointLight.instance.castShadow = true
-        this.pointLight.instance.shadow.mapSize.set(1024, 1024)
+        // this.pointLight.instance.shadow.mapSize.set(1024, 1024)
         this.scene.add(this.pointLight.instance)
 
         // Debug
@@ -81,21 +82,20 @@ export default class Lights
     setSpotLight()
     {
         // Setup
-        this.spot = {}
-        this.spot.color = '#ffffff'
+        this.spotLight = {}
+        this.spotLight.color = '#ffffff'
 
         // Instance
-        this.spot.instance = new THREE.SpotLight(0xffffff, 260, 0, 1, 1, 2)
-        this.spot.instance.position.y = - 2.5
-        this.spot.instance.position.z = 8
-        this.spot.instance.castShadow = true
-        this.spot.instance.shadow.mapSize.set(1024 * 4, 1024 * 4)
-        this.scene.add(this.spot.instance)
+        this.spotLight.instance = new THREE.SpotLight(0xffffff, 260, 0, 1, 1, 2)
+        this.spotLight.instance.position.z = 8
+        this.spotLight.instance.castShadow = true
+        this.spotLight.instance.shadow.mapSize.set(1024 * 4, 1024 * 4)
+        this.scene.add(this.spotLight.instance)
 
         // Instance
-        this.spot.helper = new THREE.SpotLightHelper(this.spot.instance)
-        this.spot.helper.visible = false
-        this.scene.add(this.spot.helper)
+        this.spotLight.helper = new THREE.SpotLightHelper(this.spotLight.instance)
+        this.spotLight.helper.visible = false
+        this.scene.add(this.spotLight.helper)
 
         // Debug
         const debugFolder = this.debugFolder.addFolder({
@@ -105,70 +105,64 @@ export default class Lights
 
         debugFolder
             .addInput(
-                this.spot.helper,
+                this.spotLight.helper,
                 'visible',
                 { label: 'helperVisible' }
             )
 
         debugFolder
             .addInput(
-                this.spot,
+                this.spotLight,
                 'color',
                 { view: 'color' }
             )
             .on('change', () =>
             {
-                this.spot.instance.color.set(this.spot.color)
+                this.spotLight.instance.color.set(this.spotLight.color)
             })
 
         debugFolder
             .addInput(
-                this.spot.instance,
+                this.spotLight.instance,
                 'intensity',
                 { min: 0, max: 500 }
             )
 
         debugFolder
             .addInput(
-                this.spot.instance,
+                this.spotLight.instance,
                 'angle',
                 { min: 0, max: Math.PI * 0.5 }
             )
             .on('change', () =>
             {
-                this.spot.helper.update()
+                this.spotLight.helper.update()
             })
 
         debugFolder
             .addInput(
-                this.spot.instance,
+                this.spotLight.instance,
                 'penumbra',
                 { min: 0, max: 1 }
             )
 
         debugFolder
             .addInput(
-                this.spot.instance,
+                this.spotLight.instance,
                 'decay',
                 { min: 0, max: 10 }
             )
 
         debugFolder
             .addInput(
-                this.spot.instance.position,
-                'y',
-                { min: - 5, max: 5 }
-            )
-            .on('change', () =>
-            {
-                this.spot.instance.lookAt(new THREE.Vector3())
-            })
-
-        debugFolder
-            .addInput(
-                this.spot.instance.position,
+                this.spotLight.instance.position,
                 'z',
                 { min: - 20, max: 20 }
             )
+    }
+
+    update()
+    {
+        this.spotLight.instance.position.y = Math.sin(this.time.elapsed * 0.0004) * 5
     }
 }
