@@ -1,3 +1,4 @@
+import Background from './Background.js'
 import Robot from './Robot.js'
 import Lights from './Lights.js'
 
@@ -15,10 +16,16 @@ export default class World
         {
             if(_group.name === 'base')
             {
+                this.setBackground()
                 this.setRobot()
                 this.setLights()
             }
         })
+    }
+
+    setBackground()
+    {
+        this.background = new Background()
     }
 
     setRobot()
