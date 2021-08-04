@@ -10,7 +10,6 @@ export default class World
         this.config = this.experience.config
         this.scene = this.experience.scene
         this.resources = this.experience.resources
-        this.gamepad = this.experience.gamepad
 
         this.resources.on('groupEnd', (_group) =>
         {

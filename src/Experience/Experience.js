@@ -7,7 +7,7 @@ import Stats from './Utils/Stats.js'
 import Resources from './Resources.js'
 import Renderer from './Renderer.js'
 import Camera from './Camera.js'
-import Gamepad from './Gamepad/Gamepad.js'
+import Controls from './Controls.js'
 import World from './World.js'
 import Presets from './Presets.js'
 
@@ -36,7 +36,7 @@ export default class Experience
         this.setCamera()
         this.setRenderer()
         this.setResources()
-        this.setGamepad()
+        this.setControls()
         this.setWorld()
         this.setPresets()
         
@@ -113,9 +113,9 @@ export default class Experience
         this.presets = new Presets()
     }
 
-    setGamepad()
+    setControls()
     {
-        this.gamepad = new Gamepad()
+        this.controls = new Controls()
     }
 
     update()
@@ -127,12 +127,12 @@ export default class Experience
 
         if(this.world)
             this.world.update()
-        
+
         if(this.renderer)
             this.renderer.update()
-        
-        if(this.gamepad)
-            this.gamepad.update()
+
+        if(this.controls)
+            this.controls.update()
 
         window.requestAnimationFrame(() =>
         {

@@ -1,0 +1,60 @@
+.keyboard-interface
+    --keySize 30px
+    --keyMargin 10px
+    --keyFullSize calc(var(--keySize) + var(--keyMargin))
+    --lineSize calc(15 * var(--keyFullSize) - var(--keyMargin))
+
+    position fixed
+    top 400px
+    left 80px
+
+    .line
+        &:last-child
+            position absolute
+            left calc(100% + var(--keyMargin))
+            bottom 0
+            width 100%
+
+    .key
+        display inline-block
+        position relative
+        width var(--keySize)
+        height var(--keySize)
+        margin-right var(--keyMargin)
+        margin-bottom:  var(--keyMargin)
+
+        &::after
+            position absolute
+            top 0
+            left 0
+            width 100%
+            height 100%
+            content ''
+            border-radius 5px
+            border 2px solid #ffffff
+
+        &.highlight
+            &::after
+                background #ffffff55
+
+        &.Backspace
+        &.Tab
+        &.Caps
+        &.ShiftLeft
+        &.ShiftRight
+            width calc(var(--keySize) * 2 + var(--keyMargin))
+
+        &.Special
+            width calc((var(--lineSize) - 210px) / 7 - var(--keyMargin))
+
+        &.Enter
+            &::after
+                height calc(var(--keySize) * 2 + var(--keyMargin) * 1.5)
+
+        &.Space
+            width 210px
+
+        &.ArrowUp
+            position absolute
+            left var(--keyFullSize)
+            top calc(var(--keyFullSize) * -1)

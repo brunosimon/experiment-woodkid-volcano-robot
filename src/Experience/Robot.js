@@ -10,7 +10,7 @@ export default class Robot
         this.debug = this.experience.debug
         this.time = this.experience.time
         this.scene = this.experience.scene
-        this.gamepad = this.experience.gamepad
+        this.controls = this.experience.controls
         this.resources = this.experience.resources
 
         // Debug
@@ -62,7 +62,7 @@ export default class Robot
                 'wireframe'
             )
 
-        this.gamepad.inputs.buttonL1.on('pressed', () =>
+        this.controls.on('wireframePressed', () =>
         {
             this.material.wireframe = !this.material.wireframe
         })
@@ -91,7 +91,7 @@ export default class Robot
                 directionMultiplier: 1,
                 min: - Infinity,
                 max: Infinity,
-                inputName: 'buttonCircle'
+                controlsName: 'shoulderPressed'
             },
             {
                 type: 'buttonToggle',
@@ -105,7 +105,7 @@ export default class Robot
                 directionMultiplier: 1,
                 min: - Infinity,
                 max: Infinity,
-                inputName: 'buttonSquare'
+                controlsName: 'upperArmPressed'
             },
             {
                 type: 'buttonToggle',
@@ -119,7 +119,7 @@ export default class Robot
                 directionMultiplier: 1,
                 min: - Math.PI * 0.75,
                 max: 0,
-                inputName: 'buttonCross'
+                controlsName: 'elbowPressed'
             },
             {
                 type: 'buttonToggle',
@@ -133,7 +133,7 @@ export default class Robot
                 directionMultiplier: 1,
                 min: - Infinity,
                 max: Infinity,
-                inputName: 'buttonTriangle'
+                controlsName: 'forearmPressed'
             },
 
             // Button pressure
@@ -145,7 +145,7 @@ export default class Robot
                 easing: 0.01,
                 value: 0,
                 easedValue: 0,
-                inputName: 'buttonR2'
+                controlsName: 'clampPressure'
             },
 
             // Button pressure
@@ -159,7 +159,7 @@ export default class Robot
                 easedX: 0,
                 y: 0,
                 easedY: 0,
-                inputName: 'joystickLeft'
+                controlsName: 'torsoOrientation'
             },
         ]
 
@@ -194,7 +194,7 @@ export default class Robot
             if(_part.type === 'buttonToggle')
             {
                 // Input pressed event
-                this.gamepad.inputs[_part.inputName].on('pressed', () =>
+                this.controls.on(_part.controlsName, () =>
                 {
                     _part.directionMultiplier *= - 1
                 })
@@ -214,19 +214,19 @@ export default class Robot
              */
             if(_part.type === 'buttonToggle')
             {
-                if(this.gamepad.inputs[_part.inputName].pressed)
+                if(this.controls[_part.controlsName])
                     _part.value += _part.speed * this.time.delta * _part.directionMultiplier
 
                 _part.value = Math.min(Math.max(_part.value, _part.min), _part.max)
             }
             else if(_part.type === 'buttonPressure')
             {
-                _part.value = this.gamepad.inputs[_part.inputName].pressure
+                _part.value = this.controls[_part.controlsName]
             }
             else if(_part.type === 'joystick')
             {
-                _part.x = this.gamepad.inputs[_part.inputName].x
-                _part.y = this.gamepad.inputs[_part.inputName].y
+                _part.x = this.controls[_part.controlsName].x
+                _part.y = this.controls[_part.controlsName].y
             }
             
             /**
