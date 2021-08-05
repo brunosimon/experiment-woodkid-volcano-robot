@@ -12,7 +12,7 @@ export default class Lights
         // Debug
         this.debugFolder = this.debug.addFolder({
             title: 'lights',
-            expanded: true,
+            expanded: false,
         })
 
         this.setPointLight()

@@ -12,7 +12,7 @@ export default class KeyboardInterface
         // Container
         this.elements.container = document.createElement('div')
         this.elements.container.classList.add('keyboard-interface')
-        document.body.appendChild(this.elements.container)
+        document.body.append(this.elements.container)
 
         // Keys
         const keys = [
@@ -58,6 +58,16 @@ export default class KeyboardInterface
                 this.keys.push(key)
             }
         })
+    }
+
+    activate()
+    {
+        document.body.append(this.elements.container)
+    }
+
+    deactivate()
+    {
+        document.body.removeChild(this.elements.container)
     }
 
     press(_input)

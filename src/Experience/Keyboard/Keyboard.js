@@ -9,7 +9,17 @@ export default class Keyboard extends EventEmitter
 
         this.setInputs()
         this.setInterface()
-    }    
+    }
+
+    activate()
+    {
+        this.interface.activate()
+    }
+
+    deactivate()
+    {
+        this.interface.deactivate()
+    }
 
     setInputs()
     {

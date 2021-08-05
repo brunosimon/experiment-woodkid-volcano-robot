@@ -97,7 +97,7 @@ export default class Experience
         // Debug
         const debugFolder = this.debug.addFolder({
             title: 'fog',
-            expanded: true,
+            expanded: false,
         })
 
         debugFolder

@@ -25,9 +25,39 @@ export default class Controls extends EventEmitter
         this.setKeyboard()
     }
 
+    goMode(_mode)
+    {
+        // Same mode
+        if(_mode === this.mode)
+        {
+            return
+        }
+
+        // Go gamepad
+        if(_mode === 'gamepad')
+        {
+            this.gamepad.activate()
+            this.keyboard.deactivate()
+        }
+
+        // Go keyboard
+        else if(_mode === 'keyboard')
+        {
+            this.gamepad.deactivate()
+            this.keyboard.activate()
+        }
+
+        this.mode = _mode
+    }
+
     setGamepad()
     {
         this.gamepad = new Gamepad()
+
+        this.gamepad.on('change', () =>
+        {
+            this.goMode('gamepad')
+        })
 
         // Preset 1
         this.gamepad.inputs.buttonUp.on('pressed', () =>
@@ -121,6 +151,8 @@ export default class Controls extends EventEmitter
                 return
             }
 
+            this.goMode('keyboard')
+
             this[_name] = true
             this.trigger(_name)
         })
@@ -139,10 +171,10 @@ export default class Controls extends EventEmitter
 
     update()
     {
+        this.gamepad.update()
+
         if(this.mode === 'gamepad')
         {
-            this.gamepad.update()
-    
             this.clampPressure = this.gamepad.inputs.buttonR2.pressure
 
             this.torsoOrientation.x = this.gamepad.inputs.joystickLeft.x

@@ -24,7 +24,7 @@ export default class Renderer
         // Debug
         this.debugFolder = this.debug.addFolder({
             title: 'renderer',
-            expanded: true,
+            expanded: false,
         })
 
         this.debugFolder

@@ -16,7 +16,7 @@ export default class Robot
         // Debug
         this.debugFolder = this.debug.addFolder({
             title: 'robot',
-            expanded: true,
+            expanded: false,
         })
 
         this.setMaterial()

@@ -9,9 +9,19 @@ export default class GamepadInterface
         this.elements = {}
         this.elements.container = document.createElement('div')
         this.elements.container.classList.add('gamepad-interface')
-        document.body.appendChild(this.elements.container)
+        // document.body.append(this.elements.container)
 
         this.setInputs()
+    }
+
+    activate()
+    {
+        document.body.append(this.elements.container)
+    }
+
+    deactivate()
+    {
+        document.body.removeChild(this.elements.container)
     }
 
     setInputs()

@@ -17,7 +17,7 @@ export default class Camera
         // Debug
         this.debugFolder = this.debug.addFolder({
             title: 'camera',
-            expanded: true
+            expanded: false
         })
 
         // Set up
