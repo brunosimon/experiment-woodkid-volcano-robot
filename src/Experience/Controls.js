@@ -8,7 +8,10 @@ export default class Controls extends EventEmitter
     {
         super()
 
-        this.mode = 'gamepad'
+        this.experience = window.experience
+        this.time = this.experience.time
+
+        this.mode = 'keyboard'
 
         this.shoulderPressed = false
         this.upperArmPressed = false
@@ -144,6 +147,41 @@ export default class Controls extends EventEmitter
 
             this.torsoOrientation.x = this.gamepad.inputs.joystickLeft.x
             this.torsoOrientation.y = this.gamepad.inputs.joystickLeft.y
+        }
+        else if(this.mode === 'keyboard')
+        {
+            // Clamps
+            if(this.clampPressed)
+                this.clampPressure += 0.003 * this.time.delta
+            else
+                this.clampPressure -= 0.003 * this.time.delta
+
+            this.clampPressure = Math.min(Math.max(this.clampPressure, 0), 1)
+
+            // Torso
+            if(this.torsoLeftPressed)
+                this.torsoOrientation.x -= 0.004 * this.time.delta
+            if(this.torsoRightPressed)
+                this.torsoOrientation.x += 0.004 * this.time.delta
+
+            if(!this.torsoLeftPressed && !this.torsoLeftPressed)
+            {
+                this.torsoOrientation.x *= 0.95
+            }
+
+            this.torsoOrientation.x = Math.min(Math.max(this.torsoOrientation.x, - 1 ), 1)
+
+            if(this.torsoUpPressed)
+                this.torsoOrientation.y -= 0.004 * this.time.delta
+            if(this.torsoDownPressed)
+                this.torsoOrientation.y += 0.004 * this.time.delta
+
+            if(!this.torsoUpPressed && !this.torsoDownPressed)
+            {
+                this.torsoOrientation.y *= 0.95
+            }
+
+            this.torsoOrientation.y = Math.min(Math.max(this.torsoOrientation.y, - 1), 1)
         }
     }
 }
