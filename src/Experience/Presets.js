@@ -8,6 +8,7 @@ export default class Presets
         this.config = this.experience.config
         this.resources = this.experience.resources
         this.renderer = this.experience.renderer
+        this.fog = this.experience.fog
         this.controls = this.experience.controls
         this.world = this.experience.world
         
@@ -45,6 +46,10 @@ export default class Presets
         this.items = [
             // Default
             {
+                fogColor: '#000000',
+                fogNear: 8.7,
+                fogFar: 12,
+
                 bloomEnabled: false,
                 bloomThreshold: 0.85,
                 bloomStrength: 1.5,
@@ -52,22 +57,22 @@ export default class Presets
 
                 finalEnabled: true,
 
-                toneMapping: THREE.NoToneMapping,
-                toneMappingExposure: 1,
+                toneMapping: THREE.CineonToneMapping,
+                toneMappingExposure: 1.5,
 
                 backgroundColorA: '#1c1c1c',
                 backgroundColorB: '#000000',
 
                 robotWireframe: false,
-                robotColor: '#666666',
+                robotColor: '#302d33',
                 robotRoughness: 1,
                 robotMetalness: 0,
 
                 pointLightColor: '#ffffff',
                 pointLightIntensity: 50,
                 pointLightDecay: 2,
-                pointLightY: 5,
-                pointLightZ: 3.5,
+                pointLightY: 0.65,
+                pointLightZ: 4.3,
 
                 spotLightColor: '#ffffff',
                 spotLightIntensity: 260,
@@ -79,6 +84,10 @@ export default class Presets
 
             // Silhouette
             {
+                fogColor: '#000000',
+                fogNear: 20,
+                fogFar: 30,
+
                 bloomEnabled: false,
                 bloomThreshold: 0.85,
                 bloomStrength: 1.5,
@@ -111,42 +120,50 @@ export default class Presets
                 spotLightZ: - 4.5,
             },
 
-            // Golden
+            // Red
             {
-                bloomEnabled: true,
+                fogColor: '#ff1414',
+                fogNear: 7,
+                fogFar: 12.2,
+
+                bloomEnabled: false,
                 bloomThreshold: 0.85,
                 bloomStrength: 1.5,
                 bloomRadius: 0.4,
 
                 finalEnabled: true,
 
-                toneMapping: THREE.ACESFilmicToneMapping,
-                toneMappingExposure: 1,
+                toneMapping: THREE.CineonToneMapping,
+                toneMappingExposure: 1.5,
 
-                backgroundColorA: '#000000',
-                backgroundColorB: '#000000',
+                backgroundColorA: '#3f0000',
+                backgroundColorB: '#100113',
 
                 robotWireframe: false,
-                robotColor: '#892c00',
-                robotRoughness: 0.23,
-                robotMetalness: 1,
+                robotColor: '#020003',
+                robotRoughness: 1,
+                robotMetalness: 0,
 
-                pointLightColor: '#2c2c2c',
-                pointLightIntensity: 152,
+                pointLightColor: '#ffffff',
+                pointLightIntensity: 50,
                 pointLightDecay: 2,
-                pointLightY: - 0.43,
-                pointLightZ: 7,
+                pointLightY: 0.65,
+                pointLightZ: 4.3,
 
                 spotLightColor: '#ffffff',
-                spotLightIntensity: 500,
+                spotLightIntensity: 260,
                 spotLightAngle: 1,
                 spotLightPenumbra: 1,
-                spotLightDecay: 0.43,
-                spotLightZ: 5,
+                spotLightDecay: 2,
+                spotLightZ: 8,
             },
 
             // Wireframe
             {
+                fogColor: '#000000',
+                fogNear: 20,
+                fogFar: 30,
+
                 bloomEnabled: true,
                 bloomThreshold: 0,
                 bloomStrength: 1.14,
@@ -184,6 +201,10 @@ export default class Presets
     apply(_index)
     {
         const presetItem = this.items[_index]
+
+        this.fog.instance.color.set(presetItem.fogColor)
+        this.fog.instance.near = presetItem.fogNear
+        this.fog.instance.far = presetItem.fogFar
 
         this.renderer.postProcess.unrealBloomPass.enabled = presetItem.bloomEnabled
         this.renderer.postProcess.unrealBloomPass.threshold = presetItem.bloomThreshold

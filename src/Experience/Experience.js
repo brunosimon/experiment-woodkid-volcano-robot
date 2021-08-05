@@ -33,6 +33,7 @@ export default class Experience
         this.setDebug()
         this.setStats()
         this.setScene()
+        this.setFog()
         this.setCamera()
         this.setRenderer()
         this.setResources()
@@ -84,6 +85,45 @@ export default class Experience
     setScene()
     {
         this.scene = new THREE.Scene()
+    }
+    
+    setFog()
+    {
+        this.fog = {}
+        this.fog.color = '#000000'
+        this.fog.instance = new THREE.Fog(this.fog.color, 8.7, 12)
+        this.scene.fog = this.fog.instance
+
+        // Debug
+        const debugFolder = this.debug.addFolder({
+            title: 'fog',
+            expanded: true,
+        })
+
+        debugFolder
+            .addInput(
+                this.fog,
+                'color',
+                { view: 'color' }
+            )
+            .on('change', () =>
+            {
+                this.fog.instance.color.set(this.fog.color)
+            })
+        
+        debugFolder
+            .addInput(
+                this.fog.instance,
+                'near',
+                { min: 0, max: 20 }
+            )
+        
+        debugFolder
+            .addInput(
+                this.fog.instance,
+                'far',
+                { min: 0, max: 20 }
+            )
     }
 
     setCamera()
