@@ -42,6 +42,8 @@ export default class Keyboard extends EventEmitter
             if(input)
             {
                 this.trigger('pressed', [input.name])
+
+                this.interface.press(input)
             }
         })
 
@@ -53,6 +55,8 @@ export default class Keyboard extends EventEmitter
             if(input)
             {
                 this.trigger('unpressed', [input.name])
+
+                this.interface.unpress(input)
             }
         })
     }

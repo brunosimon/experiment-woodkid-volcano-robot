@@ -23,19 +23,33 @@
         margin-right var(--keyMargin)
         margin-bottom:  var(--keyMargin)
 
+        &::before
         &::after
+            content ''
             position absolute
             top 0
             left 0
             width 100%
             height 100%
-            content ''
             border-radius 5px
             border 2px solid #ffffff
 
+        &::before
+            display none
+            background #ffffff
+            opacity 0.4
+            transition-property opacity
+            transition-duration 0.3s
+            will-change opacity
+
         &.highlight
-            &::after
-                background #ffffff55
+            &::before
+                display block
+
+            &.pressed
+                &::before
+                    opacity 1
+                    transition-duration 0s
 
         &.Backspace
         &.Tab

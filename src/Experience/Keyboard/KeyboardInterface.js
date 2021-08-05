@@ -6,15 +6,13 @@ export default class KeyboardInterface
     {
         this.inputs = _inputs
         
+        this.keys = []
         this.elements = {}
 
         // Container
         this.elements.container = document.createElement('div')
         this.elements.container.classList.add('keyboard-interface')
         document.body.appendChild(this.elements.container)
-
-        // Lines
-        this.elements.lines = []
 
         // Keys
         const keys = [
@@ -32,7 +30,6 @@ export default class KeyboardInterface
             const lineElement = document.createElement('div')
             lineElement.classList.add('line', `line${_lineIndex}`)
             this.elements.container.append(lineElement)
-            this.elements.lines.push(lineElement)
 
             // Each key
             for(const _key of _line)
@@ -53,7 +50,45 @@ export default class KeyboardInterface
                 {
                     keyElement.classList.add('highlight')
                 }
+
+                // Save
+                const key = {}
+                key.name = _key
+                key.element = keyElement
+                this.keys.push(key)
             }
         })
+    }
+
+    press(_input)
+    {
+        const key = this.keys.find(_key => _key.name === _input.code)
+
+        if(key)
+        {
+            key.element.classList.add('pressed')
+
+            // window.setTimeout(() =>
+            // {
+            //     key.element.classList.remove('pressed')
+            // }, 300)
+            // window.requestAnimationFrame(() =>
+            // {
+            //     key.element.classList.remove('pressed')
+            // }) 
+        }
+    }
+
+    unpress(_input)
+    {
+        const key = this.keys.find(_key => _key.name === _input.code)
+
+        if(key)
+        {
+            window.requestAnimationFrame(() =>
+            {
+                key.element.classList.remove('pressed')
+            })
+        }
     }
 }
