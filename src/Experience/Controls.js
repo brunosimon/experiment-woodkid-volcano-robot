@@ -112,14 +112,25 @@ export default class Controls extends EventEmitter
 
         this.keyboard.on('pressed', (_name) =>
         {
+            // Already pressed
+            if(this[_name])
+            {
+                return
+            }
+
             this[_name] = true
             this.trigger(_name)
         })
 
         this.keyboard.on('unpressed', (_name) =>
         {
+            // Already unpressed
+            if(!this[_name])
+            {
+                return
+            }
+            
             this[_name] = false
-            this.trigger(_name)
         })
     }
 
