@@ -34,6 +34,8 @@ export default class Keyboard extends EventEmitter
             { code: 'KeyA', name: 'torsoLeftPressed' },
             { code: 'KeyS', name: 'torsoDownPressed' },
             { code: 'KeyD', name: 'torsoRightPressed' },
+            
+            { code: 'KeyH', name: 'debugPressed' },
 
             { code: 'ShiftLeft', name: 'clampPressed' },
             { code: 'ShiftRight', name: 'wireframePressed' },

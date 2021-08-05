@@ -18,7 +18,7 @@ export default class KeyboardInterface
         const keys = [
             ['', 'Digit1', 'Digit2', 'Digit3', 'Digit4', '', '', '', '', '', '', '', '', 'Backspace'],
             ['Tab', 'KeyQ', 'KeyW', 'KeyE', '', '', '', '', '', '', '', '', '', 'Enter'],
-            ['Caps', 'KeyA', 'KeyS', 'KeyD', '', '', '', '', '', '', '', '', ''],
+            ['Caps', 'KeyA', 'KeyS', 'KeyD', '', '', 'KeyH', '', '', '', '', '', ''],
             ['ShiftLeft', '', '', '', '', '', '', '', '', '', '', '', 'ShiftRight'],
             ['Special', 'Special', 'Special', 'Space', 'Special', 'Special', 'Special', 'Special'],
             ['ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'],

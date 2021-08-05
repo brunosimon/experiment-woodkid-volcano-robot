@@ -156,6 +156,21 @@ export default class Experience
     setControls()
     {
         this.controls = new Controls()
+
+        let debugHidden = false
+        this.controls.on('debugPressed', () =>
+        {
+            debugHidden = !debugHidden
+            
+            if(debugHidden)
+            {
+                document.documentElement.classList.add('debug-hidden')
+            }
+            else
+            {
+                document.documentElement.classList.remove('debug-hidden')
+            }
+        })
     }
 
     update()

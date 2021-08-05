@@ -89,7 +89,6 @@ export default class Controls extends EventEmitter
             this.trigger('wireframePressed')
         })
 
-
         // Shoulder
         this.gamepad.inputs.buttonCircle.on('pressed', () =>
         {
@@ -136,6 +135,12 @@ export default class Controls extends EventEmitter
         this.gamepad.inputs.buttonTriangle.on('unpressed', () =>
         {
             this.forearmPressed = false
+        })
+
+        // Debug
+        this.gamepad.inputs.buttonOptions.on('pressed', () =>
+        {
+            this.trigger('debugPressed')
         })
     }
 
