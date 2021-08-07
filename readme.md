@@ -2,8 +2,8 @@
 
 ## Links
 
-- [GitHub](https://github.com/brunosimon/experiment-robot-controls)
-- [Live](https://experiment-robot-controls.vercel.app/)
+- [GitHub](https://github.com/brunosimon/experiment-woodkid-volcano-robot)
+- [Live](https://experiment-woodkid-volcano-robot.vercel.app)
 
 ## Setup
 
