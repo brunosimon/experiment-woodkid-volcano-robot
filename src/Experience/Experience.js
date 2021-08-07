@@ -29,6 +29,7 @@ export default class Experience
 
         this.time = new Time()
         this.sizes = new Sizes()
+        
         this.setConfig()
         this.setDebug()
         this.setStats()
@@ -40,6 +41,7 @@ export default class Experience
         this.setControls()
         this.setWorld()
         this.setPresets()
+        this.setIntro()
         
         this.sizes.on('resize', () =>
         {
@@ -151,6 +153,22 @@ export default class Experience
     setPresets()
     {
         this.presets = new Presets()
+    }
+
+    setIntro()
+    {
+        this.intro = {}
+        this.intro.$element = document.querySelector('.intro')
+
+        window.requestAnimationFrame(() =>
+        {
+            this.intro.$element.classList.add('is-visible')
+        })
+
+        window.setTimeout(() =>
+        {
+            this.intro.$element.classList.add('is-hidden')
+        }, 9000)
     }
 
     setControls()
